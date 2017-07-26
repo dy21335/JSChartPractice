@@ -12,67 +12,77 @@ $(function () {
             "[1480521600000,3481],[1483200000000,3477],[1485878400000,3501],[1488297600000,3435]," +
             "[1490976000000,3469],[1493568000000,3422],[1496246400000,3409],[1498838400000,3386]]",
         categorizedData,
-        monthData,
-        finalData;
+        finalData,
+        monthData;
 
     categorizedData = rawData.split("&");
     finalData = [];
-
-    monthData = changeS(JSON.parse(categorizedData[0]),0);
-    for (var i=0;i<monthData.length;i++){
-        monthData[i]=new Date(monthData[i]).getMonth()+1;
-        monthData[i]+="月";
-        console.log(monthData[i]);
-    }
-
     for (var i = 0; i < categorizedData.length; i++) {
-        finalData[i] = changeS(JSON.parse(categorizedData[i]),1);
+        finalData[i] = changeS(JSON.parse(categorizedData[i]), 1);
+        console.log(finalData[i]);
+    }
+    monthData = changeS(JSON.parse(categorizedData[0]), 0);
+    for (var i = 0; i < monthData.length; i++) {
+        monthData[i] = new Date(monthData[i]).getMonth() + 1;
+        monthData[i] += "月";
+        //   console.log(monthData[i]);
     }
 
-    function changeS(categoryData,k) {
+    function changeS(categoryData, k) {
         var result = [],
-            i=0;
-        for (i ; i < categoryData.length; i++) {
+            i = 0;
+        for (i; i < categoryData.length; i++) {
             result[i] = categoryData[i][k];
         }
         return result;
     }
 
+    //var dts是datasets的数据
+    var dts =
+        [
+            {
+                label: "一居室",
+                borderColor: "#3e95cd",
+                fill: false,
+                data: []
+            },
+            {
+                label: "二居室",
+                borderColor: "#8e5ea2",
+                fill: false,
+                data: []
+            },
+            {
+                label: "三居室",
+                borderColor: "#3cba9f",
+                fill: false,
+                data: []
+            },
+            {
+                label: "四居室",
+                borderColor: "#e8c3b9",
+                fill: false,
+                data: []
+            }];
+
+    for (var i = 0; i < finalData.length; i++) {
+        dts[i].data = finalData[i];
+    }
+
+    var data,options;
+    data = {
+        labels: [],
+        datasets: []
+    };
+    data.labels=monthData;
+    data.datasets=dts;
+    options={};
+
     var ctx = $('#myChart')[0].getContext('2d');
-
-    var mychart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["8月", "9月", "10月", "11月", "12月", "1月", "2月", "3月", "4月", "5月", "6月", "7月"],
-            datasets: [
-                {
-                    label: "一居室",
-                    borderColor: "#3e95cd",
-                    fill: false,
-                    data: finalData[0]
-                },
-                {
-                    label: "二居室",
-                    borderColor: "#8e5ea2",
-                    fill: false,
-                    data: finalData[1]
-                },
-                {
-                    label: "三居室",
-                    borderColor: "#3cba9f",
-                    fill: false,
-                    data: finalData[2]
-                },
-                {
-                    label: "四居室",
-                    borderColor: "#e8c3b9",
-                    fill: false,
-                    data: finalData[3]
-                }]
-
-        },
-        options: {}
-    });
+    var mychart = new Chart(ctx,{
+        type:'line',
+        data:data
+    })
 });
 
 
