@@ -2,13 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>JSChartPractice</title>
+    <link rel="stylesheet" type="text/css" href="src/cssFile/chartstyle.css" charset="UTF-8">
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/Chart.js/2.6.0/Chart.js"></script>
-    <script src="src/raw-rent-data.js"></script>
-    <script src="src/rent-chart.js"></script>
 </head>
 <body>
-<canvas id="myChart" width="800" height="450"></canvas>
+<h2 style="text-align: center; margin-top: 100px">Chart.js  Line Chart & Bar Chart Demo</h2>
+<div class="myChart" style="width: 80%;height: auto;margin: auto">
+    <div style="width: 50%;margin-left: 60px;margin-right: 0">
+        <canvas id="myLineChart"></canvas>
+    </div>
+    <div style="margin-left: 40px">
+        <canvas id="myBarChart"></canvas>
+    </div>
+
+</div>
+<script src="src/jsFile/raw-rent-data.js"></script>
+<script src="src/jsFile/create-line-chart.js"></script>
+<script src="src/jsFile/create-bar-chart.js"></script>
+<script src="src/jsFile/clickEvent.js"></script>
 </body>
 </html>
